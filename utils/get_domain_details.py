@@ -1,8 +1,6 @@
 import whois
 import logging
 from models.RequestModel import DomainDetails
-from datetime import datetime
-
 
 logging.basicConfig(level=logging.INFO)
 
