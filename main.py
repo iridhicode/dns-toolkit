@@ -6,6 +6,7 @@ from models.ResponseModel import DNSRecordResponse, ErrorResponse
 from models.RequestModel import DomainDetails
 from models.Enum import DNSRecordType
 
+
 app = FastAPI()
 
 @app.exception_handler(HTTPException)
@@ -44,3 +45,7 @@ async def get_domain_info(domain: str):
         return domain_details
     else:
         raise HTTPException(status_code=404, detail=f"Failed to retrieve domain details for {domain}")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
