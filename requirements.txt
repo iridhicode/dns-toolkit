@@ -1,6 +1,7 @@
 fastapi
 uvicorn
 whois
+python-whois
 pydantic
 typing
 aiodns
