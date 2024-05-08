@@ -16,7 +16,6 @@ def get_domain_details(domain: str) -> DomainDetails:
             creation_date=whois_info.creation_date,
             expiration_date=whois_info.expiration_date,
             last_updated=whois_info.updated_date,
-            status=whois_info.domain_status,
             dnssec = whois_info.dnssec
         )
         logging.info(f"Retrieved domain details for {domain}")
