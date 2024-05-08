@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+whois
+dns.resolver
+pydantic
+typing
