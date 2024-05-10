@@ -1,14 +1,14 @@
 from fastapi import FastAPI ,HTTPException
 from fastapi.responses import JSONResponse
-from routers import dns_details,header_details,ssl_details
+from routers import dns,header,ssl
 
 
 app = FastAPI(title="DNS tool kit",
     version="1.0.0",)
 
-app.include_router(dns_details.app)
-app.include_router(header_details.app)
-app.include_router(ssl_details.app)
+app.include_router(dns.app)
+app.include_router(header.app)
+app.include_router(ssl.app)
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
