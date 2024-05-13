@@ -9,10 +9,10 @@ function executeCommand() {
     eval $command
 }
 
-DEPENDENCIES=$( jq -r '.[] | "\(.name)"'outdated.json)
+DEPENDENCIES=$(jq -r '.[] | .name' outdated.json)
 
 for DEPENDENCY in $DEPENDENCIES; do
-    LATEST_VERSION=$(jq -r --arg name "$DEPENDENCY" '.[] | select(.name == $name) | .latest_version' outdated.json)
+    LATEST_VERSION=$(jq -r --arg name "$dependency_name" '.[] | select(.name == $name) | .latest_version' outdated.json)
     BRANCH_NAME="update-$DEPENDENCY-$LATEST_VERSION"
     
     executeCommand "git checkout -b $BRANCH_NAME"
