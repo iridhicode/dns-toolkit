@@ -9,10 +9,10 @@ function executeCommand() {
     eval $command
 }
 
-DEPENDENCIES=$(jq -r '.package | keys[]' outdated.json)
+DEPENDENCIES=$( jq -r '.[] | "\(.name)"'outdated.json)
 
 for DEPENDENCY in $DEPENDENCIES; do
-    LATEST_VERSION=$(jq -r ".package[\"$DEPENDENCY\"].latest_version" outdated.json)
+    LATEST_VERSION=$(jq -r --arg name "$DEPENDENCY" '.[] | select(.name == $name) | .latest_version' outdated.json)
     BRANCH_NAME="update-$DEPENDENCY-$LATEST_VERSION"
     
     executeCommand "git checkout -b $BRANCH_NAME"
@@ -25,7 +25,7 @@ for DEPENDENCY in $DEPENDENCIES; do
     executeCommand "git fetch origin main"
     executeCommand "git rebase origin/main"  
     executeCommand "git add requirements.txt"
-    executeCommand "git commit -m \"DependAware: Update $DEPENDENCY to $LATEST_VERSION\""
+    executeCommand "git commit -m \"Update $DEPENDENCY to $LATEST_VERSION\""
     executeCommand "git push https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git $BRANCH_NAME"
     executeCommand "git checkout main"
 done
